@@ -1,0 +1,48 @@
+#+TITLE: Lecture 8
+
+* Plan A: Association List
+ - Easy to implement
+ - Disadvantage: 
+   - O(n) for most operations
+   
+* Plan B: Use a balanced tree
+ - Probably a balanced binary tree
+ - Advantage: Most operations are O(log n)
+ - Disadvantages:
+   - Annoying to implement
+   - Modern computer memory works better with linear data
+   
+* Plan C: Hash table
+ - One array of slots where you could put a key value pair
+ - Hash function to map key to array slots
+ - Complications:
+   - Collisions
+
+** Solutions to collisions
+*** Plan A: Chaining
+   - Use linked list in table to chain to subsequent values
+*** Plan B: Open addressing (linear probing specifically)
+   - Maintain load factor no more than 0.5 (size/capacity)
+   - After reaching 0.5, expand table, rehashing values
+   - When inserting, hash key, and insert at that part of the table. 
+   - If that part is full, insert at the next slot
+   - When searching, hash key and start looking at that element. If the key at
+     that entry in the table matches the given key, return. Otherwise, look at
+     the next entry in the table, continuing until an empty entry is reached.
+   - When deleting an element:
+     - Create a tombstone to mark that a record once occupied the slot but no
+       longer does 
+       - Can insert at a tombstone, but when searching must search for real
+         empty slot
+         
+         
+* Header files
+~#include "map.h"~
+ - pastes the code in the file where it says include
+ - need to #ifndef name and #define name
+ - put #endif at the end
+
+
+~calloc(n, size)~
+- Allocates memory for an array of length n, with element size size
+- Zeroes all elements

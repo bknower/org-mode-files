@@ -1,0 +1,52 @@
+#+TITLE: 3650: Lecture 6
+
+Process state:
+ - Memory
+ - Process ID
+
+Syscall example
+ - Standard file descriptors
+   - 0: stdin
+   - 1: stdout
+   - 2: stderr
+
+in assembly:
+#+BEGIN_SRC asm
+; hello world syscall example
+mov $1, %rax # write syscall ID
+mov $1, %rdi # stdout file descriptor
+mov $'Hello, %rsi
+mov $6, %rdx # size
+syscall
+#+END_SRC
+
+
+in C:
+#+BEGIN_SRC C
+char in_buf[192];
+char out_buf[64];
+
+int fd = open("msg.txt", O_RDONLY); # open file in read only
+
+if (fd == -1){
+	perror("open failed");
+}
+printf("fd = %d\n", fd);
+
+long count = read(fd, in_buf, 192);
+
+long lines = 0;
+for(long i = 0; i < count; i++) {
+	if(in_buf[i] == '\n') {
+		lines += 1;
+	}
+	
+
+close(fd);
+return 0;
+#+END_SRC
+
+man 2: wrappers for system calls
+man 3: C standard library functions
+
+Array access x[y] is defined as pointer arithmetic: *(x + y)

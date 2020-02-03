@@ -1,0 +1,65 @@
+#+TITLE: CS 3650: Lecture 7
+
+Data Structures in C
+
+* strdup(s)
+- returns a pointer to a new string that is a copy of the given string
+- necessary to give a struct a string
+
+* valgrind ./goats
+- checks that all allocated memory was freed, so no leaks are possible
+
+* realloc(pointer, size)
+- allocates more memory at the same pointer, leaving the values there
+
+* String fields
+- any time we have a pointer, we need to make sure to be careful when passing it
+  around, because if 2 things try to free memory at the same pointer, there is an error
+
+* Two Most Common Data Structures
+ - Dynamic arrays :: vector, ArrayList, Array
+ - Associative arrays :: HashMap, Map
+
+* Vectors
+C gives us two building blocks for structured data:
+ - Arrays
+ - Structs
+
+Anything else we have to build ourselves
+
+Building variable length arrays:
+ - Problem: Arrays are fixed-length
+    - Arrays don't even know their own length
+ - Solution: start with a small array, reallocate larger arrays when you run out of space
+
+What functionality do we need?
+
+** Normal array operations:
+- Get length
+- Get by index (x = a[i])
+- Put by index (a[i] = x)
+- "Push back", where we add an item to the end and grow if needed
+
+** Additional Requirements:
+- Array should be contiguous in memory.
+  - Faster
+  - Compatible with existing array functions
+
+** First implementation:
+ - struct {data[], size}
+ - To push an item, allocate a new data array of size (n + 1) and copy over all items
+ - {[], 0}
+ - {[1], 1}
+ - {[1, 2]. 2}
+ - {[1, 2, 3], 3}
+ - Problem: filling an array of n items takes n^2 time
+
+** Improvement: grow by more than 1 at a time
+ - struct has 3 fields (data[], size, capacity)
+ - capacity is amount of memory allocated
+ - size is number of elements in array
+ - capacity >= size
+ - start at size = 0, capacity = 2, 4, ...
+ - double capacity at reallocation
+ - inserting n items only takes O(n) time
+
