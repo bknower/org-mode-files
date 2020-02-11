@@ -80,3 +80,13 @@ Goal: determine a "good" path through the network from source to destination
 **** Not tied to IP (works with IPv4 and IPv6)
 **** Organized as a 2-level hierarchy
 ***** Level 2 is the backbone
+
+* Distance Vector routing
+** Current best known cost to reach a destination
+** Idea: exchange vectors among neighbors to learn about lowest cost paths
+** Fill table with destinations and costs
+** RIP (Routing Information Protocol)
+** Algorithm:
+*** Wait for change in local link cost or message from neighbor
+*** Recompute distance table
+*** If least cost path to any destination has changed, notify neighbors
