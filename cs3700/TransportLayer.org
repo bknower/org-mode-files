@@ -1,0 +1,73 @@
+#+TITLE: TransportLayer
+
+* Transport Layer
+** Function:
+- Demux of data streams
+** Optional functions:
+- Create long-lived connections
+- Reliable, in-order packet delivery
+- Error detection
+- Flow and congestion control
+** Key challenges:
+- Detecting and responding to congestion
+- Balancing fairness against high utilization
+
+* Multiplexing
+** No circuits
+** No connections
+** Clients run many applications at the same time
+** Network layer needs to know what application to deliver to
+
+* Demultiplexing:
+** Network layer delivers packet to host
+** Transport layer determines which application to deliver it to
+** Based on IP tuple (src port, src IP, destination port, destination IP)
+
+* UDP (User Datagram Protocol)
+** Simple, connectionless datagram
+** Header includes source port, destination port, payload length, checksum
+** No flow control, in order delivery, reliability
+** Invented after TCP
+** Not all applications can tolerate TCP
+*** Streaming
+*** BitTorrent
+
+* TCP (Transmission Control Protocol):
+** Reliable, in-order, bi-directional byte streams
+*** Port numbers for demuxing
+*** Virtual circuits (connections)
+*** Flow control
+*** Congestion control
+
+* TCP Connection Setup
+** Establish state on both hosts
+** Start with random sequence number
+*** Avoid giving information on length of connection
+*** Avoid predictable connections (more secure)
+** 3-way handshake
+*** Client sends SYN packet to server with sequence number
+*** Server sends back SYN/ACK at same time with sequence number +1
+*** Client ACKs server
+** Problems:
+*** Packet injection
+*** Connection confusion
+*** Connection state management
+**** SYN flood is common DOS attack
+
+* TCP Connection Teardown
+** Either side can initiate
+** Send FIN packet
+** Receive ACK
+** Other side can continue sending data until sending FIN
+** ACK last FIN
+
+* Sequence Number Space
+** TCP uses a byte stream abstraction
+*** Initial random values
+*** Each byte numbered
+*** 32-bit value, wraps around
+** Byte stream broken down into segments (packets)
+*** Sequence number increases for each packet
+
+* Bidirectional Communication
+** Each side of the connection can send and receive

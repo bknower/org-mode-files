@@ -1,0 +1,94 @@
+#+TITLE: InterDomainRouting
+
+* Network Layer, Control Plane
+** Function
+- Set up routes between networks
+**
+
+* AS numbers
+** Each AS identifies by an ASN number
+** Originally 16-bit values, expanded to 32 bits in 2006
+** 1023 reserved for local/private use, 3 reserved for special use
+** Currently, there are 65,539 advertised ASNs.
+
+* Inter-Domain Routing
+** Global connectivity at stake
+*** All ASs must use the same protocol, in contrast with intra-domain routing
+** Requirements
+*** Scalability
+*** Flexibility in choosing routes
+**** Cost
+**** Routing around failures
+** BGP uses a path vector protocol, instead of distance vector or link state
+
+* BGP :: Border Gateway Protocol
+** Policy based routing protocol
+** Uses a Bellman-Ford path vector protocol
+** Simple protocol, but complex coniguration
+** Entire world sees advertisements
+*** Errors can screw up traffic globally
+** Policies driven by economics, not performance
+
+* BGP Relationships
+** Customer pays provider
+** Peers do not pay each other
+
+* Peering :: provider routing traffic from another provider to a customer or vice versa
+** Pros:
+- Reduce upstream costs
+- Improve end-to-end performance
+- May be the only way to connect to some parts of the internet
+** Cons:
+- You would rather have customers
+- Peers are often competitors
+- Peering agreements require periodic renegotiation
+
+* Two types of BGP Neighbors:
+** iBGP :: Interior
+*** Network core communicating
+*** Prevents routing loops within the AS
+*** OSPF does not include BGP policy info
+** eBGP :: Exterior
+
+* Path Vector Protocol
+** AS-path :: sequence of ASs a route traverses
+*** Similar to distance vector, but sends whole path
+** Used for loop detection and to apply policy
+*** If you see your own ID in an advertisement, discard it
+** Default choice :: route with fewest # of ASs
+
+* Types of BGP Messages:
+** Open :: establish a peering connection
+** Keep Alive: handshake at regular intervals
+** Notification: shuts down a peering session
+** Update: announce new routes or withdraw previously announced routes
+
+* BGP Attributes
+** Some attributes used to select "best" path
+*** LocalPREF
+**** Local preference policy to choose most preferred route
+**** Overrides default fewest AS behavior
+*** Multi-exit Discriminator (MED)
+**** Chooses peering point for your network
+**** Specifies path for external traffic destined for an internal network
+
+* BGP session:
+** Session connects 2 ASs
+** Connected using TCP
+
+* Importing routes
+** From peer
+** From customer
+** From provider
+
+* Exporting routes
+** Share customers to peers
+** Share customers to providers
+
+* AS Relationships
+** Each AS pair has exactly one relationship
+** Each relationship is the same for all prefixes
+** In Practice:
+*** Widespread peering
+*** Tier-1 ISPs being shoved out by huge content providers
+*** BGP is insecure

@@ -1,0 +1,121 @@
+#+TITLE: lecture9
+
+Today: Parsing
+
+* Parts to building an interpreter:
+** Tokenizer :: String -> List of Tokens
+** Parser :: List of Tokens -> Abstract Syntax Tree
+** Evaluation :: Abstract Syntax Tree -> Result (do stuff)
+
+* Simple Example: Calculator
+** Input :: "2 + 3 * 5" -> Tokenizer
+** List of Tokens :: [2, +, 3, *, 5] -> Parser
+** Abstract Syntax Tree :: (+ 2 (* 3 5)) or new AddExpr(2, new MulExpr(3, 5)) -> Evaluation
+** Result :: 17
+
+* Makefile
+#+BEGIN_SRC makefile
+SRCS := $(wildcard *.c) # := means only to assign once, instead of redefining every time
+OBJS := $(SRCS: .c=.0)
+HDRS := $(wildcard *.h)
+calc: $(OBJS) # list of object files
+	gcc -g -o $@ $(OBJS)
+
+%(.o): $(SRCS) $(HDRS)
+	gcc -c -g -o $@ $<
+
+clean:
+	rm -f calc $(OBJS)
+
+.PHONY: clean # .PHONY means it doesn't build a file
+#+END_SRC
+
+* Use fgets(), not gets()
+- gets doesn't check length, and
+* CTRL + D inserts null terminator into text input
+
+* Calculator shell using linked list
+#+BEGIN_SRC C
+int main (int _ac, char* _av[]){
+    char line[100];
+
+    while(1) {
+        char* rv = fgets(line, 96, stdin);
+        if(!rv) { // stop at end of input
+            break;
+        }
+        list* toks = tokenize(line); // tokenize the line that was read in
+        /*
+        calc_ast* ast = parse(toks); // parse tokens into abstract syntax tree
+        printf(" = 5d\n", ast_eval(ast)); // print the result of evaluating the abstract syntax tree
+        free_ast(ast);
+        free_list(toks);
+        ,*/
+    }
+
+    return 0;
+}
+
+// tokenizer
+
+// Kinds of tokens:
+//  - Numbers (one or more digits)
+//  - Operators (not digits)
+//
+// Whitespace isn't tokens
+list* tokenize(const char* text){
+    list* xs = 0;
+    long n = strlen(text);
+    long i = 0;
+    while(i < n){
+        if (isspace(text[i])){ // need #include <ctype.h> for isspace() (isspace() checks for space, newline, tab, other whitespace chars)
+            i++;
+            continue;
+        }
+
+        if (isdigit(text[i])) {
+            char* num = read_number(text, i); // read all digits of the number
+            xs = cons(num, xs);
+            ii += strlen(num);
+            free(num);
+            continue;
+        }
+
+        // else it must be an operator
+        char op[4] = "x"; // x with null terminator
+        op[0] = text[i]; // add the operation to the string
+        xs = cons(op, xs);
+        i++;
+    }
+    return rev_free(xs); // reverse list, free original, and return reversed list
+}
+
+char* read_number(const char* text, long i){
+    int n = 0;
+    while (isdigit(text[i + n])) {
+        n++;
+    }
+
+    char* num = malloc(n + 1);
+    memcpy(num, text + 1, n);
+    num[n] = 0;
+}
+
+
+// abstract syntax tree
+
+// an AST leaf contains a number
+// an AST inner node contains an operator and has 2 children
+typedef struct calc_ast {
+    char op;
+    // op is either:
+    // one of: *, -, *, / for an operator
+    // or: = for a leaf
+    struct calc_ast* arg0;
+    struct calc_ast* arg1;
+    int value;
+} calc_ast;
+
+calc_ast* make_ast_value
+
+#+END_SRC
