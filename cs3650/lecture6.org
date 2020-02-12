@@ -47,9 +47,9 @@ return 0;
 #+END_SRC
 
 #+RESULTS:
-
-* Where to find information on syscalls
+* Useful information:
+** Where to find information on syscalls
 - man 2: wrappers for system calls
 - man 3: C standard library functions
 
-* Array access x[y] is defined as pointer arithmetic: *(x + y)
+** Array access x[y] is defined as pointer arithmetic: *(x + y)
