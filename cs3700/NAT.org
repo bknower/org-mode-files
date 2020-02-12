@@ -1,39 +1,39 @@
 #+TITLE: NAT
 
 * IPv4 Shortage
-** Problem: consumer ISPs typically only give 1 IP per household
-** Idea: create a range of private IPs separate from the rest of the network
-*** Use a special router to bridge the LAN and WAN
-*** Properties of private IPs
-**** Not globally unique
-**** Taken from non-routable IP ranges
-*** Special router at the boundary of a private network that translates addresses
-**** Replaces internal IPs with external IP by modifying packet headers
-**** May also replace TCP/UDP port numbers
-**** Maintains a table of active flows
-***** Outgoing packets initialize a table entry
-***** Incoming packets are rewritten based on the table
-***** Analogous to router forwarding table
+- Problem: consumer ISPs typically only give 1 IP per household
+- Idea: create a range of private IPs separate from the rest of the network
+  - Use a special router to bridge the LAN and WAN
+  - Properties of private IPs
+    - Not globally unique
+    - Taken from non-routable IP ranges
+  - Special router at the boundary of a private network that translates addresses
+    - Replaces internal IPs with external IP by modifying packet headers
+    - May also replace TCP/UDP port numbers
+    - Maintains a table of active flows
+      - Outgoing packets initialize a table entry
+      - Incoming packets are rewritten based on the table
+      - Analogous to router forwarding table
 
 
 * Basic NAT operation
-** Creates (public address:port, private address:port) pairs
-** A given private IP will get a particular port to send and receive from, and the router will translate messages at the public IP and that port to the private IP
+- Creates (public address:port, private address:port) pairs
+- A given private IP will get a particular port to send and receive from, and the router will translate messages at the public IP and that port to the private IP
 
 * Advantages of NATs
-** Multiple hosts can share a single IP
-** Migration between ISPs is made easier
+- Multiple hosts can share a single IP
+- Migration between ISPs is made easier
 Even though the public IP changes, the router just reconfigures the translation table and hosts don't care
-** Load
+- Load
 Router can forward traffic from a single public IP to multiple private hosts
-** Natural firewall
+- Natural firewall
 Unless the sender has the right address and port, the packet gets blocked
 If no port, the NAT tries to guess which one it should be. If it can't, it drops the packet
 
 * Problems with NATs
-** Performance and scalability issues
-** Breaks layered network abstraction
-** Breaks end-to-end Internet connectivity
+- Performance and scalability issues
+- Breaks layered network abstraction
+- Breaks end-to-end Internet connectivity
 192.168.*.* addresses are private
 
 * Port Forwarding
@@ -43,5 +43,5 @@ Private address accepts anything with the correct public IP and a given port
 Problem: How to enable connectivity through NATs
 ** TURN
 Traversal Using Relays around NAT
-*** Third party server displays forwarded ports between each
-*** Each side communicates first with server to establish connection, and then directly to each other
+- Third party server displays forwarded ports between each
+- Each side communicates first with server to establish connection, and then directly to each other
