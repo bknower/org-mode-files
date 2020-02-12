@@ -1,17 +1,17 @@
-#+TITLE: lecture9
+#+TITLE: CS3650: Lecture 9
 
 Today: Parsing
 
 * Parts to building an interpreter:
-** Tokenizer :: String -> List of Tokens
-** Parser :: List of Tokens -> Abstract Syntax Tree
-** Evaluation :: Abstract Syntax Tree -> Result (do stuff)
+- Tokenizer :: String -> List of Tokens
+- Parser :: List of Tokens -> Abstract Syntax Tree
+- Evaluation :: Abstract Syntax Tree -> Result (do stuff)
 
 * Simple Example: Calculator
-** Input :: "2 + 3 * 5" -> Tokenizer
-** List of Tokens :: [2, +, 3, *, 5] -> Parser
-** Abstract Syntax Tree :: (+ 2 (* 3 5)) or new AddExpr(2, new MulExpr(3, 5)) -> Evaluation
-** Result :: 17
+- Input :: "2 + 3 * 5" -> Tokenizer
+- List of Tokens :: [2, +, 3, *, 5] -> Parser
+- Abstract Syntax Tree :: (+ 2 (* 3 5)) or new AddExpr(2, new MulExpr(3, 5)) -> Evaluation
+- Result :: 17
 
 * Makefile
 #+BEGIN_SRC makefile

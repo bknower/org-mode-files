@@ -1,4 +1,4 @@
-#+TITLE: lecture10
+#+TITLE: CS3650: Lecture 10
 Today: processes - fork() and exec()
 * Open file:
 #+BEGIN_SRC C
@@ -28,7 +28,8 @@ int main(int _ac, char* _av[]) {
 
     char temp[80];
     int input1 = open("/tmp/thing1.txt", O_RDONLY);
-    int len = read(input1, temp, 80); // number means reading into an 80 byte buffer, read as many bytes as possible
+    int len = read(input1, temp, 80);
+    // number means reading into an 80 byte buffer, read as many bytes as possible
     close(input1);
     temp[len] = 0;
 
@@ -36,7 +37,7 @@ int main(int _ac, char* _av[]) {
 }
 #+END_SRC
 
-* Combining flags with bitwise OR
+* Combining flags with bitwise OR:
 #+BEGIN_SRC C
 const int FLAG1 = 1;
 const int FLAG2 = 2;
@@ -46,12 +47,12 @@ our_syscall(FLAG2 | FLAG4);
 // FLAG2 | FLAG4 is bitwise or, 8 + 2 = 10
 #+END_SRC
 
-* Process :: instance of a currently running program
-** & :: runs process in background
-** ps :: lists processes
-** pstree :: shows process tree
+* Process - instance of a currently running program
+- & :: runs process in background
+- ps :: lists processes
+- pstree :: shows process tree
 
-* fork
+* fork - duplicates current process with new ID
 #+BEGIN_SRC C
 #include <unistd.h>
 #include <sys/types.h>
@@ -70,7 +71,8 @@ main(int _ac, char* _av[])
     // fork creates a new process by duplicating the process that called it
     // everything is copied over with new process id
 
-    // the return value of fork is 0 in the parent process, and the new process id in the new process
+    // the return value of fork is 0 in the parent process,
+    // and the new process id in the new process
     // value that was assigned is returned to if statement
     if ((cpid = fork())) {
         int pid1 = getpid();
@@ -93,7 +95,7 @@ main(int _ac, char* _av[])
 
 * execlp
 - exec syscall wrappers
-- all start with ecec
+- all start with exec
 - then argv format
   - "l" means "list" means the args are directly in the call
   - "v" means "vector" means the args are in a spearate array

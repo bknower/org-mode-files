@@ -1,4 +1,25 @@
 #+TITLE: tasks
-* TODO Systems Assignment 4
-DEADLINE: <2020-02-04 Tue>
-* TODO
+
+* TODO CY2550 HW2
+DEADLINE: <2020-02-14 Fri>
+
+* TODO Systems Challenge 1
+DEADLINE: <2020-02-18 Tue 23:59>
+
+* TODO Fundies HW
+DEADLINE: <2020-02-17 Mon>
+
+* TODO Networks Project
+DEADLINE: <2020-02-14 Fri>
+
+* TODO [#A] Schedule doctor's appointment
+* TODO [#B] Keep using the Odin Project to learn web development
+* TODO Personal website
+* TODO [#B] Complete DRC note-taker training
+* TODO Take coat back to REI
+
+
+* DONE [#A] Tickets for spring break / decide not to go home
+* DONE [#A] Send money to cornerstone
+* DONE [#A] Interview Prep for Co-op class
+DEADLINE: <2020-02-12 Wed 23:59>

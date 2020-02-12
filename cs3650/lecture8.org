@@ -1,4 +1,4 @@
-#+TITLE: Lecture 8
+#+TITLE: CS3650: Lecture 8
 
 * Plan A: Association List
  - Easy to implement
@@ -37,12 +37,12 @@
          
          
 * Header files
-~#include "map.h"~
+=#include "map.h"=
  - pastes the code in the file where it says include
  - need to #ifndef name and #define name
  - put #endif at the end
 
 
-~calloc(n, size)~
+=calloc(n, size)=
 - Allocates memory for an array of length n, with element size size
 - Zeroes all elements
