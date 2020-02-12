@@ -30,9 +30,10 @@ clean:
 .PHONY: clean # .PHONY means it doesn't build a file
 #+END_SRC
 
-* Use fgets(), not gets()
-- gets doesn't check length, and
-* CTRL + D inserts null terminator into text input
+* Useful Tips:
+** Use fgets(), not gets()
+- gets doesn't check length
+** CTRL + D inserts null terminator into text input
 
 * Calculator shell using linked list
 #+BEGIN_SRC C
