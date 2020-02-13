@@ -13,7 +13,10 @@ Internet organized as a two-level hierarchy
 ** First level: Autonomous Systems (AS's)
 Region of network under a single administrative domain
 - Examples:
-Comcast, AT&T, Verizon, Sprint, etc.
+  - Comcast
+  - AT&T
+  - Verizon
+  - Sprint
 - AS's use intra-domain routing protocols internally
   - Distance Vector (RIP)
   - Link State (OSPF)
