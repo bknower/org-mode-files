@@ -50,7 +50,7 @@ return 0;
 
 
 * Useful information:
-** Where to find information on syscalls
+** Where to find documentation on syscalls
 - man 2: wrappers for system calls
 - man 3: C standard library functions
 
