@@ -1,6 +1,6 @@
 #+TITLE: CS3650: Lecture 11
 
-* Today's topic: Strats for Challenge 1
+Today's topic: Strats for Challenge 1
 
 * Last time:
 

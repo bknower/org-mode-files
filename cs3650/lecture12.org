@@ -1,5 +1,155 @@
 #+TITLE: CS3650: Lecture 12
 
 Today's Topic: Virtual Memory
+
+* Purpose of virtual memory
+- Two programs may want to use the same numerical address
+- When we fork, the programs are guaranteed to have the same addresses
+- So the addresses can't be physical locations on the RAM
+- The CPU and OS work together to give every process its own virtual address space
+
+
 * Page Table:
 - Translates virtual page numbers to physical page numbers
+
+* 32-bit vs 64-bit OS
+** Advantages of 64-bit
+- Larger address space
+- Even if you don't have more than 4 GB of RAM, you might need more than 4GB of
+  address space, since multiple things might access the same physical memory
+** Advantages of 32-bit
+- Smaller pointers
+  - This takes up less memory, with a noticeable benefit in larger programs
+
+* =save-array.c=
+- Saves array to file (not human readable)
+- Stored in Little Endian (least significant bit first)
+#+BEGIN_SRC C
+#include <sys/mman.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+// create array.mem
+// save squares 1..10
+void
+assert_ok(long rv, char* call)
+{
+    if (rv == -1) {
+        fprintf(stderr, "Failed call: %s\n", call);
+        perror("Error:");
+        exit(1);
+    }
+}
+
+int
+main(int _ac, char* _av[])
+{
+    int size = 10 * sizeof(int);
+
+    // Talk about ORing flags.
+    int fd = open("./array.mem", O_CREAT|O_TRUNC|O_RDWR, 0644);
+    assert_ok(fd, "open");
+
+    // truncates the file to a given size
+    int rv = ftruncate(fd, size);
+    assert_ok(rv, "ftruncate");
+
+    // maps the file to memory in virtual address space
+    int* xs = mmap(0, size, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
+    assert_ok((long)xs, "mmap");
+
+    // because this memory was mapped from a file, changing it will write to the file
+    for (int ii = 0; ii < 10; ++ii) {
+        xs[ii] = ii * ii;
+    }
+
+    // unmap memory and close file
+    rv = munmap(xs, size);
+    assert_ok(rv, "munmap");
+
+    rv = close(fd);
+    assert_ok(rv, "close");
+
+    return 0;
+}
+#+END_SRC
+
+* Shared Memory
+- With shared memory, one process can change values stored in memory of another process
+- Without shared memory, memory will be unchanged in different processes
+#+BEGIN_SRC C
+#include <pthread.h>
+#include <semaphore.h>
+#include <stdatomic.h>
+#include <assert.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <sys/mman.h>
+
+int
+main(int _ac, char* _av[])
+{
+    int* shared = mmap(0, 4096, PROT_READ | PROT_WRITE,
+                       MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+
+    for (int ii = 0; ii < 10; ++ii) {
+        shared[ii] = ii;
+    }
+
+
+    int cpid;
+    // in parent process
+    if ((cpid = fork())) {
+        printf("parent: sleep 1\n");
+        sleep(1);
+
+        // multiply all numbers in array by 100
+        printf("parent: mutating array\n");
+        for (int ii = 0; ii < 10; ++ii) {
+            shared[ii] = ii * 100;
+        }
+
+        // wait for child to finish
+        waitpid(cpid, 0, 0);
+    }
+    // in child process
+    else {
+        printf("child: array content:\n");
+        for (int ii = 0; ii < 10; ++ii) {
+            printf("%d ", shared[ii]);
+        }
+        printf("\nchild: sleep 2\n");
+
+        sleep(2);
+
+        printf("child: array content:\n");
+        for (int ii = 0; ii < 10; ++ii) {
+            printf("%d ", shared[ii]);
+        }
+        printf("\n");
+    }
+
+    munmap(shared, 4096);
+
+    return 0;
+}
+
+#+END_SRC
+
+* Semaphores
+A semaphore is an integer
+- sem_wait - decrements the integer
+  - Can't decrement below zero
+  - If the integer would go below zero, block the process until someone else
+    increments it
+- sem_post - increments the integer
+  - if anyone is blo ked on the semaphore, wake them and give them a change to decrement
+
+*
