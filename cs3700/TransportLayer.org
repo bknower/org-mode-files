@@ -55,11 +55,11 @@
   - SYN flood is common DOS attack
 
 * TCP Connection Teardown
-1. Either side can initiate
-2. Send FIN packet
-3. Receive ACK
-4. Other side can continue sending data until sending FIN
-5. ACK last FIN
+Either side can initiate
+1. Send FIN packet
+2. Receive ACK
+3. Other side can continue sending data until sending FIN
+4. ACK last FIN
 
 * Sequence Number Space
 - TCP uses a byte stream abstraction
@@ -71,3 +71,84 @@
 
 * Bidirectional Communication
 - Each side of the connection can send and receive
+
+* Flow Control
+** Problem: how many packets should a sender transmit?
+- Too many packets may overwhelm the receiver
+- Size of the receiver's bufers may change over time
+
+** Solution: sliding window
+- Receiver tells the sender how big their buffer is
+- Called the advertised window
+- For window size n, sender may transmit n bytes without receiving an ACK
+- After each ACK, the window slides forward
+** What should the receiver ACK
+- ACK every packet
+- Cumuluative ACK, where an ack for sequence n implies ACKs for all k < n
+- Negative ACKs, saying when a packet doesn't arrive
+- Selective ACKs, (SACKs), indicating which packets received, even if not in order
+  - Used in TCP
+
+* Sequence numbers
+- Advertised window is half the size of the sequence number space
+- 32 bits, unsigned
+** Silly window syndrome
+- Problem: what if the window is too small
+
+* Error Detection:
+** Checksum
+- Detects some packet corruption
+- Computed over IP header, TCP header, and data
+** Sequence numbers catch sequence problems
+- Duplicates are ignored
+- Out-of-order packets are reordered or dropped
+- Missing sequence numbers indicate lost packets
+
+* Congestion:
+When load on the network is higher than the capacity
+- Capacity is not uniform across networks
+- Multiple flows competing for bandwidth
+- Load is not uniform over time
+
+Why is congestion bad?
+- Results in packet loss
+  - Routers have finite buffers, packets must be dropped
+- Practical consequences
+  - Router queues build up, delay increases
+  - Wasted bandwidth from retransmissions
+  - Low network goodput
+
+The danger of increasing load:
+- Knee: point after which:
+  - Throughput increases very slowly
+  - Delay increases quickly
+- Cliff: point after which:
+  - Throughput -> 0
+  - Delay -> infinity
+
+* Congestion Control:
+** Goals:
+- Adjusting to bottleneck bandwidth
+- Adjusting to variations in bandwidth
+- Sharing bandwidth between flows
+- Maximizing throughput
+** Approaches:
+- Do nothing, send packets indiscriminately
+  - Many packets will drop, unpredictable performance
+  - May lead to congestion collapse
+- Reservations
+  - Pre-arrange bandwidth allocations for flow
+  - Requires negotiation before sending packets
+  - Must be supported by the network
+- Dynamic adjustment
+  - Use probes to estimate level of congestion
+  - Speed up when congestion is low
+  - Slow down when congestion increases
+  - Messy dynamics, requires distributed coordination
+** TCP Congestion control:
+- Introduce a congestion window at the sender
+  - Congestion control is sender-side problem
+  - Controls the number of unACKed packets
+  - Separate variable, but bounded by the receiver's advertised window
+- Sending rate is proportional to congestion window / RTT
+  - TCP is ACK-clocked

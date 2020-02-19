@@ -15,11 +15,12 @@ DEADLINE: <2020-02-14 Fri>
 * TODO [#A] Schedule doctor's appointment
 * TODO [#B] Keep using the Odin Project to learn web development
 * TODO Personal website
-* TODO [#B] Complete DRC note-taker training
+* DONE [#B] Complete DRC note-taker training
+CLOSED: [2020-02-14 Fri 01:59]
+
 * TODO Take coat back to REI
-
-
 * DONE [#A] Tickets for spring break / decide not to go home
 * DONE [#A] Send money to cornerstone
 * DONE [#A] Interview Prep for Co-op class
 DEADLINE: <2020-02-12 Wed 23:59>
+
