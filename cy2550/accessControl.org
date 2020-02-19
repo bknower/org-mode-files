@@ -1,4 +1,4 @@
-#+TITLE: accessControl
+#+TITLE: Access Control
 
 * After Authentication, then what?
 
@@ -25,7 +25,8 @@
 - Permissions separated into owner, group, and everyone else
 - Use chmod to edit permissions
 - chmod +x :: makes a file executable
-- chmod 777 :: 7 in binary is 111, so sets all groups to have all permissions
+- chmod 777 :: 7 in binary is 111, setting read, write and execute each
+  to 1; each 7 represents the permissions of the owner, the group, and everyone else
 Who can change permissions?
 - Only owner can change permissions and group
 - Can only add a group you belong to
