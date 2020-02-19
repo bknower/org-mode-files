@@ -1,0 +1,39 @@
+#+TITLE: accessControl
+
+* After Authentication, then what?
+
+* Access control check
+- Given an access request, return an access control decision
+
+* Access control models
+** Discretionary access control (DAC)
+- Access rights propagate and may be changed at subject's discretion
+- File has read/write privileges, and any user with those access rights can
+  share them
+- Users can pass on any priveleges they have
+** Mandatory Access Control (MAC)
+- Access of subjects to objects is based on a system-wide policy
+- Users don't have full control over resources they create
+
+* Methods of Access Control
+** Access control matrices
+- Read, write, excute permissions for every user for every object
+- Difficult to control
+- Too much to keep track of
+** Unix-style permissions
+- All objects have an owner and a group
+- Permissions separated into owner, group, and everyone else
+- Use chmod to edit permissions
+- chmod +x :: makes a file executable
+- chmod 777 :: 7 in binary is 111, so sets all groups to have all permissions
+Who can change permissions?
+- Only owner can change permissions and group
+- Can only add a group you belong to
+- Root can change permissions for any file
+
+
+* Midterm Review:
+- Security game for symmetric encryption
+- Security game for Public Key Encryption
+- Distributed password authentication
+**
