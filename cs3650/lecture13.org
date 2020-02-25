@@ -19,7 +19,7 @@ The lock rule:
 - Every piece of shared data has an associated lock.
 - When the shared data is accessed the accessing process must hold the lock.
 Problems:
-- If you're not careful, locks make your program sequentia
+- If you're not careful, locks make your program sequential
 - Deadlock:
   - If you have more then one lock, your program can deadlock
   - Caused by circular wait

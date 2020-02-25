@@ -1,0 +1,140 @@
+#+TITLE: Cyberlaw
+
+* Learning outcomes:
+Cryptography, passwords, and authentication
+- Password cracking skills
+Vulnerabilites and exploits
+- Practice performing live exploits
+
+* Cybersecurity laws
+- Outdated
+- Broad
+- Vague
+- Legal and ethical are not the same
+
+* How are cybercriminals prosecuted?
+Pyotr Levashov, aka Severa
+- Prolific spammer
+- Operator of many botnets
+- Arrested in Barcelona in 2017
+- Extradited to the US in 2018
+- Charged with:
+  - Causing intentional damage to a protected computer
+  - Accessing protected computers in furtherance of fraud
+  - Threatening to damage a protected computer
+- Obvious criminal charged appropriately
+
+Marcus Hutchins, aka malwaretech
+- Anti-malware researcher
+- Accidentally stopped the WannaCry malware outbreak by activating hidden killswitch
+- Arrested and accused of writing, selling, and possible operating the Kronos
+  banking trojan
+- Charged with:
+  - Conspiracy
+  - Intentionaly damage to a protected computer
+  - Illegal wiretapping
+- Black hat hacker "reformed" to get reduced sentence
+
+* Computer Fraud and Abuse Act of 1986
+- Written in response to the movie WarGames
+- Prohibits access to a protected computer without authorization or in excess of authorization
+** CFAA Details
+- A protected computer is any computer used in or affecting interstate or
+  foreign commerce or communication
+  - Essentially every computer connected to the internet
+- Criminal offenses
+  - Unauthorized access to information on a protected computer
+  - Leveraging unauthorized access to commit fraud for something of value worth
+    > $5000
+  - Causing damage or loss to a protected computer
+    - Could just be disabling it or knocking it offline
+  - Threatening to cause damage to or steal information from a protected
+    computer without authorization
+** Notable CFAA Prosecutions
+- Robert Morris for releasing the Morris worm
+  - Purpose was to prove a vulnerability, but it spread to almost every device
+    on the internet
+- US v. Collins: against members of Anonymous for DDoSing Paypal
+- Albert Gonzalez for the TJX hack
+- Numberous cybercriminals, such as Severa
+** How does the CFAA impact cybersecurity researchers
+The CFAA doesn't state what "authorized use" means
+- Who decides what computers may be accessed or are "protected"
+- Who decides how a computer may be accessed
+Different circuit courts have different interpretations
+** Infamous CFAA Prosecutions
+- US v. Lori Drew: Drew created a fake MySpace account and used it to harass a
+  young girl, who later committed suicide
+  - Drew charged under CFAA for violation MySpace's ToS
+  - ToS said fake accounts were unauthorized
+  - Drew was eventually fully acquitted
+- US v Nosal: Nosal stole a database from his former employer using credentials
+  borrowed from a current employee
+  - Account sharing violated the computer use policy for the corporate networka
+- Aaron Swartz
+  - Developer and internet activist
+  - Co-developer of RSS and Markdown
+  - Crawled research papers from JSTOR by breaking into MIT wiring closet
+  - JSTOR and MIT didn't press charges, but US charged him with 13 counts under
+    the CFAA, giving him 35 years in prison and a 1M fine
+  - He committed suicide
+** Access Versus Use
+- CFAA criminalizes access violations, but CFAA threats have been brought for
+  violating use policies
+- Example: LinkedIn vs HiQ
+  - HiQ scrapes data from LinkedIn and uses it for analytics
+  - Data comes from public profiles
+    - Anyone can access this data, even without a LinkedIn account
+** Cautionary Tale
+- Kevin Finisterre identified several serious problems with DJI drones
+  - Found SSL private keys and AES firmware encryption keys in DJI's public GitHub
+  - Gained access to DJI servers containing customer data and business records
+- DJI had a bug bounty program
+  - Kevin disclosed his findings to DJI, did not go public
+  - DJI agreed to 30k reward
+- DJI demanded a restrictive NDA before paying the bounty
+  - Kevin gave up the bounty and went public
+- DJI overhauled their bug bounty terms
+  - Gave people in the bug bounty program limited authorized access to their systems
+
+* Digital Millennium Copyright Act of 1998
+** Intentions
+- Intended to criminalize circumvention of DRM
+- Criminalizes circumvention of access controls
+  - Whether or not you infringe copyrights
+- Criminalizes distribution of circumvention tools
+  - Whether or not you infringe copyrights
+- Library of Congress may issue exemptions every 3 years
+** Scope of the law:
+- Copyright access control mechanisms include:
+  - Encryption
+  - Copy protection software and mechanisms
+  - Watermarks
+- Extremely broad scope
+  - Any software can be copyrighted
+  - Any encryption may be considered an access control mechanism
+  - Authentication is also access control
+** Current Exemptions:
+- Good-faith research on
+  - Consumer electronics and IoT devices
+  - Medical devices
+  - Voting machines
+  - Jailbreaking and unlocking phones and digital assistants
+- Exemptions are not permanent or all-inclusive
+  - Must have legal access to the device or software
+  - Cannot violate other laws, like the CFAA
+** Takeaways
+- If you are doing security research on a device you own, or software on a
+  device in your possession, be careful of the DMCA
+- If you are doing security research on a remote service via the internet, be
+  careful of the DMCA and the CFAA
+- Vulnerability research on companies without bug bounty programs is very risky,
+  any even bug bounty programs do not guarantee zero risk
+* CAN-SPAM act of 2003
+Controlling the Assault of Non-Solicited Pornography And Marketing Act
+** Main provisions:
+- Email headers cannot be spoofed
+- Email cannot be sent through open relays
+- Email must contain a working unsubscribe option
+- Email cannot be sent to a harvested email address
+- Emails with explicit content must be prominently labeled
