@@ -1,0 +1,67 @@
+#+TITLE: ethics
+
+* Cambridge Analytica
+- Company paid Facebook users to take surveys
+- Based on the survey and their facebook likes, they could predict:
+  - sexual orientation
+  - ethnicity
+  - religious and political views
+  - personality traits
+  - intelligence
+  - happiness
+  - use of addictive substances
+  - parental separation
+  - age
+  - gender
+- They used this data to influence the 2016 election
+- Facebook insists there was no technical failure in their security procedures
+- Scary implications for Facebook's privacy policies
+
+* Google Project Zero
+- Zero-day :: a vulnerability that developers have zero days to prepare for
+
+- Project Zero searches for vulnerabilities in other companies' software
+- If they find it, they notify the company and give them 90 days to fix it
+  before releasing the bug to the public
+- Is this reasonable?
+  - Yes. In almost every situation it is harder to find the
+    vulnerability than to actually fix it
+
+* Law vs. Morality
+- What is legal is not necessarily moral
+- What is illegal is not necessarily immoral
+- Westboro Baptist Church
+  - Their protests are legal but immoral
+- Edward Snowden
+  - His acts were illegal but not necessarily immoral
+
+* Value Sensitive Design
+** Defining Success
+- One of the most important parts of value sensitive design is finding the right
+  definintion of "success" for your project
+- Projects with bad success definitions may succees on their own terms, but be
+  very bad in other respects
+- What is the success definition of cybersecurity?
+  - Security, but what exactly does this mean?
+  - Maximum security is not always possible or desirable
+** Why is cybersecurity important?
+- Value :: something that is important, bears on how we ought to live
+- Intrinsic value :: something that is valuable for its own sake
+- Instrumental value :: something that is valuable only as a means for getting
+  something else
+- Cybsersecurity is instrumentally valuable
+** Stakeholders in Cybersecurity
+- Direct stakeholders :: people who directly use a technology
+- Indirect stakeholders :: people who do not directly use a technology but are
+  affected by its use
+** Is the free market a solution for security?
+- No.
+- Power assymetry - companies have more power than users in security
+- Information assymetry - companies have more information on security than users
+- Users can't reasonably make the right decisions on which services to use
+** Companies may have a duty to protect their users' security
+- Possible justification for project zero
+** Professional role obligations
+- Are penetration testers morally/legally obligated to report legal violations
+  they may find while investigating a company?
+  - No easy answer, consider the analogy of doctors and their patients
