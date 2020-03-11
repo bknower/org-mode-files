@@ -1,0 +1,92 @@
+#+TITLE: Authorization
+
+* Authentication:
+Verifying a claim about identity by a subject on behalf of a principle
+** Should be:
+- Unforgeable
+- Unguessable
+- Revokable
+- Resettable
+* Authorization
+After authenticating a subject, what next?
+- Determine whether a user can access a resource
+- Policy specification
+** 3 parties:
+- Principle - users
+- Subject - process or program operating on behalf of the principle
+  - Browser, shell, email program, etc.
+- Object - resources
+  - Files, networks, GPUs
+** Access control check:
+Given an access request from a subject, on behalf of a principal, for an object,
+return an access control decision based on the policy
+
+* Types of access control:
+** Discretionary access control:
+Subjects are allowed to share the permissions they hold with other subjects
+- Very common
+- e.g. UNIX, Windows, Dropbox, Google Drive
+- Access control matrix
+  - Permissions for each subject-object pair (read, write, execute)
+- Access control list
+  - Authorization spefified based on the permissions for each object
+- Capability-based systems
+  - Authorization specified by enumerating the capabilities of each subject
+  - Android and iOS use a capability-based system for different apps
+  - Per-event capability
+    - Every time an app needs to do something, it asks permission
+*** Failure of DAC
+- If a user has permissions to a file, they can give permissions to other users
+- So if the user is compromised, the attacker then has the power to control the
+  access of other users.
+** Mandatory Access Control
+System policy determines access control, and users cannot share or give
+permissions to other subjects
+*** Bell-Lapadula system
+"No read up, no write down"
+- Why can't we write down?
+  - This would be sharing information at a higher security level to lower
+    levels, which is what we are trying to avoid
+- System model: abstract machine that captures the operation
+- Security policy: what defines the security guarantee
+- Clearances:
+  - Subjects have clearances, "maximum clearances" and can operate at any level
+    up to their top clearances
+- Classifications:
+  - Objects have classifications for which clearances can access them
+- Security idea:
+  A computer system is in a state, and undergoes state transitions whenever an
+  operation occurs
+  - The system is secure if all transitions satisfy 3 properties
+    - Simple - Subjects only read files that have the same or lower clearance
+    - Star - Subjects may only write files with the same or greater clearance
+    - Discretionary - Subjects must also follow the rules in access control lists
+- Tranquility: processes can only go up in security clearance or cannot change
+  at all
+  - Prevents a user from copying a file to a lower security clearance
+* Side Channel Attacks
+Top secret process has user cache, file system, and CPU running on a side
+channel. These side channels can be recorded to gain information
+- Laser microphone can record sound from vibrations in window
+- CRT display emits EM signal that can be recorded from far away
+* Security Lattice
+- Compartments:
+  - Top Secret Nuclear, Top Secret Crypto, Top Secret
+  - Top Secret Nuclear and Crypto are on the same level of security clearance,
+    but can not access each other's information
+* Biba Integrity Policy
+"no read down, no write up"
+- Shouldn't be able to rely on information below current level
+- Shouldn't be able to create information that levels above can trust
+
+* Failures of Operation - Social Engineering
+** Baiting
+- Preload USB keys with malware
+- Drop the keys in public, near victims
+- Wait for victims to pick up and plug in
+- Victim executes malware
+** Tailgating
+- o a secure facility
+- Wait for an unsuspecting employee to open a door
+- Follow them inside
+- Leverages courtesy bias and ingroup bias

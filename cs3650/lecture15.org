@@ -1,0 +1,32 @@
+#+TITLE: CS 3650: Lecture 15
+
+* Threads vs. Processes
+Two ways to get parallel / concurrent execution:
+- Processes
+- Threads
+
+Key difference: shared address space for threads
+
+* History
+- Early computers could run one thing at a time
+- Multi-processing let you run more than one application at once
+  - First in commercial / academic minicomputers (refrigerator-sized)
+  - Initial plan: batch processing
+    - Can still only run one thing at a time
+    - Improved with timesharing, multiple terminals
+- Personal computers get multiprocessing in the mid 80s
+  - Personal computers need concurrency for GUIs
+  - They don't need isolation for reliability
+  - Solution is cooperative multi-tasking and threads
+    - Program runs one thing until completion and then yields to other process
+- Dual-core CPUs in 2004
+  - Unix supported this: multiple processes on multiple cores
+  - Windows supported this: multiple threads on multiple cores
+
+* Parallelism and Concurrency
+- Concurrency is when two things logically happen at the same time. Either we
+  can't assign an order, or we don't care about an order. This is a question
+  about software design
+- Parallelism is when two things physically happen simultaneously. This is
+  really a hardware property
+-
