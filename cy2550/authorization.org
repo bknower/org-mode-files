@@ -1,4 +1,4 @@
-#+TITLE: Authorization
+#+TITLE: CY2550 Notes 03/11: Authorization
 
 * Authentication:
 Verifying a claim about identity by a subject on behalf of a principle
